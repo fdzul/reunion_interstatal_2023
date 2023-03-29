@@ -577,14 +577,23 @@ deneggs::eggs_hotspots_intensity_map(spde_betas = merida$betas,
 :::
 
 ::: grid-item
-```{r}
-load("~/OneDrive/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
-deneggs::eggs_hotspots_intensity_map(spde_betas = merida$betas,
-                                     years = 2023,
-                                     locality = "Merida",
-                                     cve_ent = "31",
-                                     palette = rcartocolor::carto_pal,
-                                     name = "SunsetDark")
+```{r risk_escenario_actual_merida}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+risk_transmision_activa(betas = merida$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Merida")
 ```
 :::
 
@@ -643,14 +652,23 @@ deneggs::eggs_hotspots_intensity_map(spde_betas = valladolid$betas,
 :::
 
 ::: grid-item
-```{r risk_escenario_actual}
-load("~/OneDrive/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
-deneggs::eggs_hotspots_intensity_map(spde_betas = valladolid$betas,
-                                     years = 2023,
-                                     locality = "Valladolid",
-                                     cve_ent = "31",
-                                     palette = rcartocolor::carto_pal,
-                                     name = "SunsetDark")
+```{r risk_escenario_actual_valladolid}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+risk_transmision_activa(betas = valladolid$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Valladolid")
 ```
 :::
 
@@ -665,7 +683,7 @@ deneggs::eggs_hotspots_intensity_map(spde_betas = valladolid$betas,
 
 -   ***Bio*** : https://fdzul.github.io/web_site_fadm/
 
--   ***email*** : [felipe.dzul.m\@gmail.com]()
+-   ***email*** : [felipe.dzul.m@gmail.com]()
 
 -   ***celular*** : [8139945623]()
 

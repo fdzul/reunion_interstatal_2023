@@ -474,13 +474,59 @@ risk_map(risk = risk, staticmap = TRUE)
 </body>
 </html>
 
-## [Escenarios de riesgo]{style="color:#003300"}
+## [Escenarios Operativos]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
+:::: {.columns}
+
+::: {.column width="50%"}
+Merida
+```{r risk_merida2, out.height="100%", out.width="100%"}
+# load the dengue cases hotspots
+load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
+hotspots <- cases_hotspots_agebs19 |>
+    sf::st_make_valid()
+# load the betas 
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/hotspots_eggs/8.RData/31_yucatan/betas/31_yucatan_zinb1_betas.RData")
+
+###
+source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_agebs.R")
+source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_map.R")
+risk <- risk_agebs(spde_model = betas_31_yucatan,
+                   hotspots = cases_hotspots_agebs19,
+                   locality = "Mérida",
+                   cve_ent = "31",
+                   intensity_perc = 25)
+risk_map(risk = risk, staticmap = TRUE) 
+```
+:::
+
+::: {.column width="50%"}
+Valladolid
+```{r risk_valladolid2, out.height="100%", out.width="100%"}
+# load the dengue cases hotspots
+load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
+hotspots <- cases_hotspots_agebs19 |>
+    sf::st_make_valid()
+# load the betas 
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/hotspots_eggs/8.RData/31_yucatan/betas/31_yucatan_zinb1_betas.RData")
+
+###
+source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_agebs.R")
+source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_map.R")
+risk <- risk_agebs(spde_model = betas_31_yucatan,
+                   hotspots = cases_hotspots_agebs19,
+                   locality = "Valladolid",
+                   cve_ent = "31",
+                   intensity_perc = 25)
+risk_map(risk = risk, staticmap = TRUE) 
+```
+:::
+
+::::
 
 
-
-## [Transmisión Reciente]{style="color:#003300"}
+## [Transmisión Activa]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
 <html>
@@ -681,6 +727,61 @@ risk_transmision_activa(betas = valladolid$betas,
 
 </body>
 </html>
+
+## [Escenarios de la Transmisión Activa]{style="color:#003300"}
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+:::: {.columns}
+
+::: {.column width="40%"}
+Mérida
+```{r risk_escenario_actual_merida2}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+risk_transmision_activa(betas = merida$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Merida")
+```
+:::
+
+::: {.column width="60%"}
+Valladolid
+```{r risk_escenario_actual_valladolid2}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+risk_transmision_activa(betas = valladolid$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Valladolid")
+```
+:::
+
+::::
+
+## [Datos Básicos]{style="color:#003300"}
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
 
 
 ## [Dios Botic]{style="color:#003300;"}

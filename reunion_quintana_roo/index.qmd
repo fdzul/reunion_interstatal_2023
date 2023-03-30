@@ -477,11 +477,7 @@ risk_map(risk = risk, staticmap = TRUE)
 ## [Escenarios Operativos]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
-:::: {.columns}
-
-::: {.column width="50%" height="100%"}
-Merida
-```{r risk_merida2, out.height="200%", out.width="200%"}
+```{r risk_merida2}
 # load the dengue cases hotspots
 load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
 hotspots <- cases_hotspots_agebs19 |>
@@ -492,38 +488,27 @@ load("~/Library/CloudStorage/OneDrive-Personal/proyects/hotspots_eggs/8.RData/31
 ###
 source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_agebs.R")
 source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_map.R")
-risk <- risk_agebs(spde_model = betas_31_yucatan,
+merida_risk <- risk_agebs(spde_model = betas_31_yucatan,
                    hotspots = cases_hotspots_agebs19,
                    locality = "Mérida",
                    cve_ent = "31",
                    intensity_perc = 25)
-risk_map(risk = risk, staticmap = TRUE) 
-```
-:::
-
-::: {.column width="50%" height="100%"}
-Valladolid
-```{r risk_valladolid2, out.height="200%", out.width="200%"}
-# load the dengue cases hotspots
-load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
-hotspots <- cases_hotspots_agebs19 |>
-    sf::st_make_valid()
-# load the betas 
-load("~/Library/CloudStorage/OneDrive-Personal/proyects/hotspots_eggs/8.RData/31_yucatan/betas/31_yucatan_zinb1_betas.RData")
-
-###
-source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_agebs.R")
-source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/risk_map.R")
-risk <- risk_agebs(spde_model = betas_31_yucatan,
+valladolid_risk <- risk_agebs(spde_model = betas_31_yucatan,
                    hotspots = cases_hotspots_agebs19,
                    locality = "Valladolid",
                    cve_ent = "31",
                    intensity_perc = 25)
-risk_map(risk = risk, staticmap = TRUE) 
-```
-:::
+a <- risk_map(risk = merida_risk, 
+              staticmap = TRUE) +
+  ggplot2::ggtitle("Merida")
 
-::::
+b <- risk_map(risk = valladolid_risk, 
+              staticmap = TRUE) +
+  ggplot2::ggtitle("Valladolid")
+library(patchwork)
+a | b
+
+```
 
 
 ## [Transmisión Activa]{style="color:#003300"}
@@ -731,7 +716,7 @@ risk_transmision_activa(betas = valladolid$betas,
 ## [Escenarios de la Transmisión Activa]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
-```{r risk_escenario_actual_merida2, out.height="100%", out.width="100%"}
+```{r risk_escenario_actual, out.height="100%", out.width="100%"}
 if(as.vector(Sys.info()["sysname"]) == "Darwin"){
     load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
     load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
@@ -747,11 +732,15 @@ if(as.vector(Sys.info()["sysname"]) == "Darwin"){
 a <- risk_transmision_activa(betas = merida$betas,
                         geocoded_data =  z,
                         cve_edo = "31",
-                        locality = "Merida")
+                        locality = "Merida") +
+  ggplot2::ggtitle("Merida")
 b <- risk_transmision_activa(betas = valladolid$betas,
                         geocoded_data =  z,
                         cve_edo = "31",
-                        locality = "Valladolid")
+                        locality = "Valladolid") +
+  ggplot2::ggtitle("Valladolid")
+
+
 library(patchwork)
 a | b
 ```

@@ -481,7 +481,7 @@ risk_map(risk = risk, staticmap = TRUE)
 
 ::: {.column width="50%" height="100%"}
 Merida
-```{r risk_merida2}
+```{r risk_merida2, out.height="200%", out.width="200%"}
 # load the dengue cases hotspots
 load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
 hotspots <- cases_hotspots_agebs19 |>
@@ -503,7 +503,7 @@ risk_map(risk = risk, staticmap = TRUE)
 
 ::: {.column width="50%" height="100%"}
 Valladolid
-```{r risk_valladolid2}
+```{r risk_valladolid2, out.height="200%", out.width="200%"}
 # load the dengue cases hotspots
 load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
 hotspots <- cases_hotspots_agebs19 |>
@@ -757,7 +757,7 @@ risk_transmision_activa(betas = merida$betas,
 
 ::: {.column width="50%" height="100%"}
 Valladolid
-```{r risk_escenario_actual_valladolid2, out.height="100%", out.width="100%"}
+```{r risk_escenario_actual_valladolid2, out.height="110%", out.width="110%"}
 if(as.vector(Sys.info()["sysname"]) == "Darwin"){
     load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
     load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")

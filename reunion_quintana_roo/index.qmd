@@ -782,6 +782,38 @@ risk_transmision_activa(betas = valladolid$betas,
 ## [Datos Básicos]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
+```{r}
+# step 1. load the data
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    source("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/3.Functions/active_transmission_dat.R")
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+dplyr::bind_rows(active_transmission_dat(betas = merida$betas,
+                                         geocoded_data = z,
+                                         cve_edo = "31",
+                                         locality = "Merida") |>
+                     dplyr::filter(municipio == 50) |>
+                     dplyr::mutate(localidad = "Merida") |>
+                     dplyr::select(localidad, municipio, sectores, 
+                                   blocks, chains, hotspots),
+                 active_transmission_dat(betas = valladolid$betas,
+                                         geocoded_data = z,
+                                         cve_edo = "31",
+                                         locality = "Valladolid") |>
+                     dplyr::mutate(localidad = "Valladolid") |>
+                     dplyr::select(localidad, municipio, sectores, 
+                                   blocks, chains, hotspots)) |>
+    kableExtra::kable() |>
+    kableExtra::kable_classic()
+```
 
 
 ## [Dios Botic]{style="color:#003300;"}

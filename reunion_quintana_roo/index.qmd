@@ -40,7 +40,8 @@ path_arbo <- "/Users/fdzul/Library/CloudStorage/OneDrive-Personal/datasets/DGE/a
 # 3.1 arbovirosis dataset
 x <- boldenr::read_dataset_bol(path = path_arbo,
                                 dataset = "sinave")
-source("~/Dropbox/r_developments/r_new_functions/3.Functions/static_bump_map.R")
+#source("~/Dropbox/r_developments/r_new_functions/3.Functions/static_bump_map.R")
+source("~/Library/CloudStorage/Dropbox/r_developments/r_new_functions/3.Functions/static_bump_map.R")
 library(sf)
 ```
 
@@ -474,6 +475,7 @@ risk_map(risk = risk, staticmap = TRUE)
 </body>
 </html>
 
+
 ## [Escenarios Operativos]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
@@ -713,6 +715,7 @@ risk_transmision_activa(betas = valladolid$betas,
 </body>
 </html>
 
+
 ## [Escenarios de la Transmisión Activa]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
@@ -744,6 +747,7 @@ b <- risk_transmision_activa(betas = valladolid$betas,
 library(patchwork)
 a | b
 ```
+
 
 
 ## [Datos Básicos]{style="color:#003300"}

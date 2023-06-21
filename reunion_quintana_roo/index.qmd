@@ -25,8 +25,8 @@ highlight-style: a11y
 
 </h3>
 
-<h4>Create: 2023-04-05</h4>
-<h4>Update: `Sys.Date()` </h4>
+<h4>Date: 2023-04-05 </h4>
+<h4>Update: 2023-06-21 </h4>
 
 <br>
 
@@ -781,6 +781,13 @@ dplyr::bind_rows(active_transmission_dat(betas = merida$betas,
                                          cve_edo = "31",
                                          locality = "Valladolid") |>
                      dplyr::mutate(localidad = "Valladolid") |>
+                     dplyr::select(localidad, municipio, sectores, 
+                                   blocks, chains, hotspots),
+                 active_transmission_dat(betas = ticul$betas,
+                                         geocoded_data = z,
+                                         cve_edo = "31",
+                                         locality = "Ticul") |>
+                     dplyr::mutate(localidad = "Ticul") |>
                      dplyr::select(localidad, municipio, sectores, 
                                    blocks, chains, hotspots)) |>
     kableExtra::kable() |>

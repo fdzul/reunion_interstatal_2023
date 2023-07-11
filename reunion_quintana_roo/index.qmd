@@ -21,6 +21,8 @@ highlight-style: a11y
 
 <h3>Jorge Palacios</h3>
 
+<h3>Fabián Correa-Morales</h3>
+
 <h3>
 
 </h3>
@@ -1075,7 +1077,10 @@ dplyr::bind_rows(active_transmission_dat(betas = merida$betas,
                      dplyr::mutate(localidad = "Tizimín") |>
                      dplyr::select(localidad, municipio, sectores, 
                                    blocks, chains, hotspots)) |>
-    reactable::reactable()
+    reactable::reactable(style = list(fontSize = '16px'),
+                         bordered = TRUE, 
+                         striped = TRUE, 
+                         highlight = TRUE)
 ```
 
 

@@ -9,7 +9,7 @@ format:
 highlight-style: a11y
 ---
 
-<h2>Plan Interestatal de Prevención y Control del Dengue<br>en Yucatán</h2>
+<h2>Plan Estatal de Prevención y Control del Dengue<br>en Yucatán</h2>
 
 <h2>
 
@@ -26,7 +26,7 @@ highlight-style: a11y
 </h3>
 
 <h4>Date: 2023-04-05 </h4>
-<h4>Update: 2023-06-21 </h4>
+<h4>Update: 2023-07-10 </h4>
 
 <br>
 
@@ -144,7 +144,7 @@ ggplot2::ggplot() +
                        color = "#36C5F0",
                        size = 2)  +
     ggplot2::annotate("text",
-                      label = "Acciones Específica Básicas",
+                      label = "Acciones Específicas Básicas",
                       x = 10, 
                       y = 280,
                       col = "gray",
@@ -168,7 +168,7 @@ ggplot2::ggplot() +
                       col = "#ECB22E",
                       size = 4) +
     ggplot2::annotate("text",
-                      label = "Acciones Específica de Soporte",
+                      label = "Acciones Específicas de Soporte",
                       x = 10, 
                       y = 150,
                       col = "gray",
@@ -274,7 +274,7 @@ ggplot2::ggplot() +
                        color = "#36C5F0",
                        size = 2)  +
     ggplot2::annotate("text",
-                      label = "Acciones Específica Básicas",
+                      label = "Acciones Específicas Básicas",
                       x = 10, 
                       y = 280,
                       col = "gray",
@@ -518,7 +518,7 @@ a | b
 ## [Escenarios Operativos]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
-```{r risk_merida3}
+```{r risk_ticul}
 # load the dengue cases hotspots
 load("~/Library/CloudStorage/Dropbox/hotspots_2022/8.RData/cases_hotspots_agebs19.RData")
 hotspots <- cases_hotspots_agebs19 |>
@@ -755,10 +755,217 @@ risk_transmision_activa(betas = valladolid$betas,
 </html>
 
 
+
+## [Transmisión Activa]{style="color:#003300"}
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+<html>
+<head>
+```{=html}
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 5px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 5px;
+  font-size: 30px;
+  text-align: center;
+}
+</style>
+```
+</head>
+<body>
+<h1>
+</h1>
+<p>
+</p>
+
+::: grid-container
+
+::: grid-item
+Localidad
+:::
+
+::: grid-item
+Transmisión
+:::
+
+::: grid-item
+Vector
+:::
+
+::: grid-item
+Escenarios
+:::
+
+::: grid-item
+Ticul
+:::
+
+::: grid-item
+```{r cadenas_ticul_2023}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+# 2. aplicar la prueba de knox
+z <- z |>
+    as.data.frame() |>
+    sf::st_as_sf(coords = c("long", "lat"),
+                 crs = 4326) |>
+    dplyr::mutate(onset = lubridate::ymd(FEC_INI_SIGNOS_SINT))
+
+loc <- rgeomex::extract_locality(cve_edo = "31",
+                                 locality = "Ticul")
+library(magrittr)
+denhotspots::knox(x = z[loc,], 
+                  crs = "+proj=eqc", 
+                  ds = 400, 
+                  dt = 20, 
+                  sym = 1000, 
+                  sp_link = FALSE,
+                  planar_coord = FALSE) |>
+    denhotspots::space_time_link_map(
+        locality = "Ticul",
+        cve_edo = "31",
+        maptype = "staticmap",
+        facetmap = FALSE)
+```
+:::
+
+::: grid-item
+```{r hotspots_vector_ticul_2023}
+load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+deneggs::eggs_hotspots_intensity_map(spde_betas = ticul$betas,
+                                     years = 2023,
+                                     locality = "Ticul",
+                                     cve_ent = "31",
+                                     palette = rcartocolor::carto_pal,
+                                     name = "SunsetDark")
+```
+
+:::
+
+::: grid-item
+```{r risk_escenario_actual_ticul}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+risk_transmision_activa(betas = ticul$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Ticul")
+```
+:::
+
+::: grid-item
+Tizimin
+:::
+
+::: grid-item
+```{r cadenas_tizimin_2023}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+# 2. aplicar la prueba de knox
+z <- z |>
+    as.data.frame() |>
+    sf::st_as_sf(coords = c("long", "lat"),
+                 crs = 4326) |>
+    dplyr::mutate(onset = lubridate::ymd(FEC_INI_SIGNOS_SINT))
+
+loc <- rgeomex::extract_locality(cve_edo = "31",
+                                 locality = "Tizimín")
+library(magrittr)
+denhotspots::knox(x = z[loc,], 
+                  crs = "+proj=eqc", 
+                  ds = 400, 
+                  dt = 20, 
+                  sym = 1000, 
+                  sp_link = FALSE,
+                  planar_coord = FALSE) |>
+    denhotspots::space_time_link_map(
+        locality = "Tizimín",
+        cve_edo = "31",
+        maptype = "staticmap",
+        facetmap = FALSE)
+```
+:::
+
+::: grid-item
+```{r hotspots_vector_tizimin_2023}
+load("~/OneDrive/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+deneggs::eggs_hotspots_intensity_map(spde_betas = tizimin$betas,
+                                     years = 2023,
+                                     locality = "Tizimín",
+                                     cve_ent = "31",
+                                     palette = rcartocolor::carto_pal,
+                                     name = "SunsetDark")
+```
+
+:::
+
+::: grid-item
+```{r risk_escenario_actual_tizimin}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+risk_transmision_activa(betas = tizimin$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Tizimín")
+```
+:::
+
+:::
+
+</body>
+</html>
+
+
+
+
+
 ## [Escenarios de la Transmisión Activa]{style="color:#003300"}
 <hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
 
-```{r risk_escenario_actual, out.height="100%", out.width="100%"}
+```{r risk_escenario_actual1, out.height="100%", out.width="100%"}
 if(as.vector(Sys.info()["sysname"]) == "Darwin"){
     load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
     load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
@@ -788,6 +995,38 @@ a | b
 ```
 
 
+## [Escenarios de la Transmisión Activa]{style="color:#003300"}
+<hr style="height:2px;border-width:0;color:#330019;background-color:#330019">
+
+```{r risk_escenario_actual2, out.height="100%", out.width="100%"}
+if(as.vector(Sys.info()["sysname"]) == "Darwin"){
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    load("~/Library/CloudStorage/OneDrive-Personal/proyects/talks/reunion_inter_estatal/8.RData/eggs_hotspots_2023.RData")
+    source("~/Library/CloudStorage/Dropbox/r_developments/r_talks/2023/reunion_interstatal_2023/reunion_quintana_roo/functions/risk_transmission_activa.R")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Windows"){
+    load("D:/OneDrive/proyects/geocoding_mex/2023/9.geocoded_dataset/dengue_mx_2023.RData")
+    
+} else if(as.vector(Sys.info()["sysname"]) == "Linux"){
+    
+}
+
+a <- risk_transmision_activa(betas = ticul$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Ticul") +
+  ggplot2::ggtitle("Ticul")
+b <- risk_transmision_activa(betas = tizimin$betas,
+                        geocoded_data =  z,
+                        cve_edo = "31",
+                        locality = "Tizimín") +
+  ggplot2::ggtitle("Tizimín")
+
+
+library(patchwork)
+a | b
+```
+
 
 
 ## [Datos Básicos]{style="color:#003300"}
@@ -812,7 +1051,7 @@ dplyr::bind_rows(active_transmission_dat(betas = merida$betas,
                                          cve_edo = "31",
                                          locality = "Merida") |>
                      dplyr::filter(municipio == 50) |>
-                     dplyr::mutate(localidad = "Merida") |>
+                     dplyr::mutate(localidad = "Mérida") |>
                      dplyr::select(localidad, municipio, sectores, 
                                    blocks, chains, hotspots),
                  active_transmission_dat(betas = valladolid$betas,
@@ -828,9 +1067,15 @@ dplyr::bind_rows(active_transmission_dat(betas = merida$betas,
                                          locality = "Ticul") |>
                      dplyr::mutate(localidad = "Ticul") |>
                      dplyr::select(localidad, municipio, sectores, 
+                                   blocks, chains, hotspots),
+                 active_transmission_dat(betas = tizimin$betas,
+                                         geocoded_data = z,
+                                         cve_edo = "31",
+                                         locality = "Tizimín") |>
+                     dplyr::mutate(localidad = "Tizimín") |>
+                     dplyr::select(localidad, municipio, sectores, 
                                    blocks, chains, hotspots)) |>
-    kableExtra::kable() |>
-    kableExtra::kable_classic()
+    reactable::reactable()
 ```
 
 
